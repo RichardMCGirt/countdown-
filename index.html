@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #2c3e50, #34495e);
+      color: #ecf0f1;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-top: 50px;
+      color: #e74c3c;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    p {
+      font-size: 1.5em;
+      margin: 20px auto;
+      background: #1abc9c;
+      padding: 15px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    p span {
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #bdc3c7;
+    }
+  </style>
+</head>
+<body>
+  <p id="countdown">Loading...</p>
+
+  <script>
+    function updateCountdown() {
+      // Set target date and time in the Eastern Time zone
+      const targetDate = new Date('2025-01-05T21:00:00-05:00'); // 9 PM ET
+      const currentDate = new Date();
+
+      // Calculate the time difference in milliseconds
+      const diff = targetDate - currentDate;
+
+      // If the countdown is over, display a message
+      if (diff <= 0) {
+        document.getElementById('countdown').textContent = "The event has started!";
+        clearInterval(interval); // Stop updating
+        return;
+      }
+
+      // Convert milliseconds into days, hours, minutes, and seconds
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      // Update the countdown display
+      document.getElementById('countdown').innerHTML =
+        `<span>${days}</span> Days, <span>${hours}</span> Hours, <span>${minutes}</span> Minutes, <span>${seconds}</span> Seconds`;
+    }
+
+    // Update the countdown every second
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call to set the countdown immediately
+  </script>
+</body>
+</html>
